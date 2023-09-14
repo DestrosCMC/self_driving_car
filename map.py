@@ -21,7 +21,7 @@ dest_y = 90
 def set_coordinates(angle, distance, grid_x_offset):
   x = int(math.ceil(distance * math.sin(angle)) + grid_x_offset)
   y = int(math.ceil(distance * math.cos(angle)))
-  print('x ',x,', y ',y)
+  print('angle ', angle, ', distance ', distance, ', x ',x,', y ',y)
   map_grid[x,y] = 1
   return x, y
 
@@ -37,7 +37,7 @@ def scan_row():
     distance = fc.get_distance_at(curr_angle)
     reading = fc.get_status_at(curr_angle)
     if reading != 2:
-      x, y = set_coordinates(curr_angle, reading, x_offset)
+      x, y = set_coordinates(curr_angle, distance, x_offset)
       if prev_x ==0 or prev_y ==0:
         prev_x = x
         prev_y = y
