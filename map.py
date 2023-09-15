@@ -19,23 +19,33 @@ dest_x = 90
 dest_y = 90
 
 def set_coordinates(angle, distance, grid_x_offset):
-  x = int(math.ceil(distance * math.sin(angle)) + grid_x_offset)
-  y = int(math.ceil(distance * math.cos(angle)))
+  x = int(math.ceil(distance * math.sin(-1*angle)) + grid_x_offset)
+  #x = int(math.ceil(distance * math.sin(-1*angle)))
+  y = int(math.ceil(distance * math.cos(-1*angle)))
   print('angle ', angle, ', distance ', distance, ', x ',x,', y ',y)
   map_grid[x,y] = 1
   return x, y
 
 def set_slope_coordinates(x1, x2, y1, y2):
-  #m = (y2 -y1) / (x2 - x1)
-  for x in range(x1, x2):
-    for y in range(y1, y2):
-      map_grid[x][y] = 1
+  if x2-x1 != 0:
+    m = (y2-y1)/(x2-x1)
+    for x in range(x1+1, x2):
+      prev_diff = 0
+      for y in range(y1+1, y2):
+        if x2-x != 0:
+          m1 = (y2 - y)/(x2 - x)
+          curr_diff = math.abs(m1-m)
+          if curr_diff < prev_diff or prev_diff == 0:
+            prev_diff = curr_diff
+            print('coordinates to set', x, y)
+            map_grid[x][y] = 1
 
 def scan_row():
   global prev_x, prev_y
   for curr_angle in range(left_limit_angle, right_limit_angle, 5):
     distance = fc.get_distance_at(curr_angle)
     reading = fc.get_status_at(curr_angle)
+    print('angle ', curr_angle, reading, distance)
     if reading != 2:
       x, y = set_coordinates(curr_angle, distance, x_offset)
       if prev_x ==0 or prev_y ==0:
