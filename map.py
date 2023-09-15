@@ -19,9 +19,9 @@ dest_x = 90
 dest_y = 90
 
 def set_coordinates(angle, distance, grid_x_offset):
-  x = int(math.ceil(distance * math.sin(-1*angle)) + grid_x_offset)
-  #x = int(math.ceil(distance * math.sin(-1*angle)))
-  y = int(math.ceil(distance * math.cos(-1*angle)))
+  x = int(math.ceil(distance * math.sin(math.radians(abs(angle)))) + grid_x_offset)
+  #x = int(math.ceil(distance * math.sin(angle)))
+  y = int(math.ceil(distance * math.cos(math.radians(abs(angle)))))
   print('angle ', angle, ', distance ', distance, ', x ',x,', y ',y)
   map_grid[x,y] = 1
   return x, y
