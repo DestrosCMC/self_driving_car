@@ -20,8 +20,10 @@ dest_y = 90
 
 def set_coordinates(angle, distance, grid_x_offset):
   x = int(math.ceil(distance * math.sin(math.radians(abs(angle)))) + grid_x_offset)
+  x = 99 if x > 100 else x
   #x = int(math.ceil(distance * math.sin(angle)))
   y = int(math.ceil(distance * math.cos(math.radians(abs(angle)))))
+  y = 99 if y > 100 else y
   print('angle ', angle, ', distance ', distance, ', x ',x,', y ',y)
   map_grid[x,y] = 1
   return x, y
