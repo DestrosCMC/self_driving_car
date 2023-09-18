@@ -88,9 +88,13 @@ def run(model: str, camera_id: int, width: int, height: int, num_threads: int,
     while x < len(detection_result.detections):
       # print(detection_result.detections[x].categories[0].category_name)
       if detection_result.detections[x].categories[0].category_name == 'stop sign':
-        print('stop sign detected')
-        if detection_result.detections[x].categories[0].category_name == 'traffic light':
-          print('traffic light detected')
+        return 'stop sign detected'
+      else:
+        pass
+      if detection_result.detections[x].categories[0].category_name == 'traffic light':
+        return 'traffic light detected'
+      else:
+        pass
       x = x + 1
 
     # Draw keypoints and edges on input image
