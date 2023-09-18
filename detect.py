@@ -57,7 +57,7 @@ def run(model: str, camera_id: int, width: int, height: int, num_threads: int,
   base_options = core.BaseOptions(
       file_name=model, use_coral=enable_edgetpu, num_threads=num_threads)
   detection_options = processor.DetectionOptions(
-      max_results=3, score_threshold=0.25)
+      max_results=3, score_threshold=0.3)
   options = vision.ObjectDetectorOptions(
       base_options=base_options, detection_options=detection_options)
   detector = vision.ObjectDetector.create_from_options(options)
@@ -81,6 +81,17 @@ def run(model: str, camera_id: int, width: int, height: int, num_threads: int,
 
     # Run object detection estimation using the model.
     detection_result = detector.detect(input_tensor)
+
+    # TEST category name warning
+    # print (detection_result)
+    x = 0
+    while x < len(detection_result.detections):
+      # print(detection_result.detections[x].categories[0].category_name)
+      if detection_result.detections[x].categories[0].category_name == 'stop sign':
+        print('stop sign detected')
+        if detection_result.detections[x].categories[0].category_name == 'traffic light':
+          print('traffic light detected')
+      x = x + 1
 
     # Draw keypoints and edges on input image
     image = utils.visualize(image, detection_result)
