@@ -3,8 +3,8 @@ import picar_4wd as fc
 from picar_4wd.servo import Servo
 from picar_4wd.pwm import PWM
 import math as math
-import matplotlib.pyplot as plt
-import detect
+#import matplotlib.pyplot as plt
+from detect import main as dettect
 
 #Create a 100x100 array filled with zeros
 map_grid = np.zeros((100,100))
@@ -72,7 +72,10 @@ def moveforward():
   fc.forward(20)
   fc.time.sleep(0.5)
   fc.stop()
-  detect()
+  obstacle = dettect()
+  if (obstacle == 'traffic light detected') or (obstacle == 'stop sign detected'):
+    fc.stop()
+    #pass
 def turnright():
   fc.turn_right(30)
   fc.time.sleep(1.5)
@@ -184,8 +187,8 @@ def main():
     scan_row()
     for j in range(100):
       print(list(map_grid[j]))
-    plt.imshow(map_grid,origin='lower')
-    plt.show()
+    #plt.imshow(map_grid,origin='lower')
+    #plt.show()
     calculate_next_move()
     print("X and Y are: ("+str(source_x) + "," + str(str(source_y))+")")
 
