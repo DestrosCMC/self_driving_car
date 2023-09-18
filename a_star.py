@@ -4,6 +4,8 @@ from picar_4wd.servo import Servo
 from picar_4wd.pwm import PWM
 import math as math
 import matplotlib.pyplot as plt
+import detect
+
 #Create a 100x100 array filled with zeros
 map_grid = np.zeros((100,100))
 #Initialize variables
@@ -70,6 +72,7 @@ def moveforward():
   fc.forward(20)
   fc.time.sleep(0.5)
   fc.stop()
+  detect()
 def turnright():
   fc.turn_right(30)
   fc.time.sleep(1.5)
